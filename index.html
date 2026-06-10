@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Pitstop Resto World | Restaurant à Kinshasa</title>
+  <!-- Font Awesome (icônes) & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fefaf5;
+      color: #2c2418;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, .logo, .nav-links a, .hero-title {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Couleurs inspirées route / gastronomie */
+    :root {
+      --primary: #c96e2c;
+      --primary-dark: #a04e1a;
+      --accent: #e3b87c;
+      --dark-bg: #1e1b16;
+      --light-bg: #fff9f0;
+      --text-dark: #2c2418;
+      --text-light: #f8f4ec;
+    }
+
+    /* Header & navigation */
+    header {
+      background: rgba(30, 27, 22, 0.95);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+    .logo span {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #fcf7f0;
+      font-weight: 500;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Hero section */
+    .hero {
+      background: linear-gradient(105deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 100%), url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+      min-height: 95vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 0;
+      padding-top: 80px;
+    }
+    .hero-content {
+      max-width: 800px;
+      padding: 2rem;
+      color: white;
+    }
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
+      margin-bottom: 1rem;
+    }
+    .hero-tagline {
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      font-family: 'Inter', sans-serif;
+      text-shadow: 1px 1px 8px black;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.25s;
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: scale(1.02);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      background: white;
+      color: var(--primary-dark);
+    }
+
+    /* sections communes */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--primary);
+      margin: 0.7rem auto 0;
+      border-radius: 4px;
+    }
+
+    /* Carte / Menu rapide */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .menu-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      transition: transform 0.25s;
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+    }
+    .menu-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    .menu-card h3 {
+      font-size: 1.6rem;
+      margin: 1rem 1rem 0.3rem;
+    }
+    .menu-card p {
+      padding: 0 1rem 1rem;
+      color: #5a4a34;
+    }
+    .price {
+      display: block;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin: 0 1rem 1rem;
+      font-family: monospace;
+    }
+
+    /* À propos & ambiance */
+    .about {
+      background: var(--light-bg);
+      border-radius: 48px;
+      margin: 2rem auto;
+    }
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-text {
+      flex: 1.5;
+    }
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      color: #3e3322;
+    }
+    .about-img {
+      flex: 1;
+      background: url('https://images.pexels.com/photos/1267320/restaurant-interior-ambiance-1267320.jpeg?auto=compress&cs=tinysrgb&w=800') center/cover;
+      min-height: 280px;
+      border-radius: 32px;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+    }
+
+    /* adresse & map */
+    .map-section {
+      background: #2c2418;
+      color: var(--text-light);
+      border-radius: 48px;
+      margin: 2rem auto;
+    }
+    .map-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .map-info {
+      flex: 1;
+      padding: 1rem;
+    }
+    .map-info h3 {
+      font-size: 1.9rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .map-info i {
+      margin-right: 12px;
+      width: 28px;
+      color: var(--accent);
+    }
+    .map-info p {
+      margin: 0.8rem 0;
+      font-size: 1.1rem;
+    }
+    .map-embed {
+      flex: 1.2;
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 300px;
+      background: #ddd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+    }
+
+    /* horaires */
+    .hours {
+      background: white;
+      border-radius: 32px;
+      text-align: center;
+    }
+    .hours-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .hours-card {
+      background: #fff4e8;
+      padding: 1.5rem 2rem;
+      border-radius: 32px;
+      min-width: 200px;
+    }
+    .hours-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* footer */
+    footer {
+      background: #1e1b16;
+      color: #cfc6b8;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 2rem;
+    }
+    .social-links {
+      margin: 1rem 0;
+    }
+    .social-links a {
+      color: var(--accent);
+      font-size: 1.6rem;
+      margin: 0 0.8rem;
+      transition: 0.2s;
+      display: inline-block;
+    }
+    .social-links a:hover {
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(30,27,22,0.98);
+        padding: 1.2rem;
+        border-radius: 20px;
+        margin-top: 1rem;
+        gap: 1rem;
+        text-align: center;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo">Pitstop <span>Resto World</span></div>
+    <div class="menu-toggle" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#apropos">Notre histoire</a></li>
+      <li><a href="#adresse">Adresse & Map</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- section Hero -->
+  <section id="accueil" class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Pitstop Resto World</h1>
+      <p class="hero-tagline">Cuisine d’exception & esprit roadtrip • Kinshasa</p>
+      <a href="#menu" class="btn-primary">Découvrir la carte <i class="fas fa-arrow-right"></i></a>
+      <div style="margin-top: 2rem;">
+        <a href="#adresse" class="btn-outline"><i class="fas fa-map-marker-alt"></i> Nous trouver</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU aperçu -->
+  <section id="menu" class="section">
+    <h2 class="section-title">Nos spécialités</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-img" style="background-image: url('https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+        <h3>Poulet Yassa</h3>
+        <p>Poulet mariné au citron, oignons caramélisés, riz parfumé. Un classique revisité.</p>
+        <span class="price">12 500 FC</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img" style="background-image: url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+        <h3>Liboke de Poisson</h3>
+        <p>Poisson frais braisé dans les feuilles de bananier, épices locales et légumes fondants.</p>
+        <span class="price">15 000 FC</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img" style="background-image: url('https://images.pexels.com/photos/2983098/pexels-photo-2983098.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+        <h3>Burger Pitstop</h3>
+        <p>Double bœuf, cheddar, sauce secrète, frites maison. L’indétrônable du voyageur.</p>
+        <span class="price">10 000 FC</span>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2.5rem;">
+      <a href="#" class="btn-primary" style="background-color: #755c3e;">Carte complète & réservations</a>
+    </div>
+  </section>
+
+  <!-- À propos & ambiance -->
+  <section id="apropos" class="section about">
+    <h2 class="section-title">Notre univers</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p><i class="fas fa-motorcycle" style="color: var(--primary); margin-right: 8px;"></i> <strong>Pitstop Resto World</strong> est bien plus qu’un restaurant : c’est une escale gourmande au cœur de Kinshasa. Inspiré par les routes mythiques et les cuisines du monde, nous mêlons saveurs congolaises et influences internationales.</p>
+        <p>Notre équipe vous accueille dans une ambiance chaleureuse, entre déco industrielle & végétation luxuriante. Que vous soyez de passage ou habitué, chaque plat raconte un voyage.</p>
+        <p><i class="fas fa-utensils"></i> Produits frais, viandes maturées, poissons de la rivière… Une expérience unique à partager entre amis ou en famille.</p>
+        <a href="#adresse" style="color: var(--primary); font-weight: 600;">Réserver une table →</a>
+      </div>
+      <div class="about-img"></div>
+    </div>
+  </section>
+
+  <!-- Adresse + map interactive (Near H8J6+5C7 Pitstop Resto World, Kinshasa) -->
+  <section id="adresse" class="section map-section">
+    <div class="map-container">
+      <div class="map-info">
+        <h3><i class="fas fa-location-dot"></i> Pitstop Resto World</h3>
+        <p><i class="fas fa-map-pin"></i> <strong>Adresse exacte :</strong> H8J6+5C7, Kinshasa, République Démocratique du Congo</p>
+        <p><i class="fas fa-car"></i> À proximité du boulevard Lumumba, accès facile. Parking sécurisé disponible.</p>
+        <p><i class="fas fa-phone-alt"></i> +243 812 345 678</p>
+        <p><i class="fas fa-envelope"></i> contact@pitstopresto.cd</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="https://www.google.com/maps/search/?api=1&query=H8J6%2B5C7+Kinshasa" target="_blank" class="btn-primary" style="background-color: #2c6e2c; padding: 0.6rem 1.4rem; font-size: 0.9rem;"><i class="fab fa-google"></i> Ouvrir dans Google Maps</a>
+        </div>
+      </div>
+      <div class="map-embed">
+        <!-- Intégration OpenStreetMap / Leaflet avec affichage du point H8J6+5C7 approximatif à Kinshasa -->
+        <!-- Utilisation d'une carte dynamique via Leaflet (CDN) pour montrer l'emplacement estimé -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <div id="map" style="height: 100%; min-height: 300px; width: 100%; border-radius: 24px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Horaires & infos -->
+  <section id="horaires" class="section hours">
+    <h2 class="section-title">Horaires d'ouverture</h2>
+    <div class="hours-grid">
+      <div class="hours-card">
+        <i class="fas fa-calendar-week"></i>
+        <h4>Lundi - Jeudi</h4>
+        <p>11:00 – 22:30</p>
+      </div>
+      <div class="hours-card">
+        <i class="fas fa-calendar-alt"></i>
+        <h4>Vendredi - Samedi</h4>
+        <p>11:00 – 00:30</p>
+      </div>
+      <div class="hours-card">
+        <i class="fas fa-mug-hot"></i>
+        <h4>Dimanche</h4>
+        <p>12:00 – 21:00 (Brunch spécial)</p>
+      </div>
+    </div>
+    <p style="margin-top: 2rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> Livraison via nos partenaires (Pitstop Express) / Réservation conseillée le week-end.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="social-links">
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-tiktok"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+  </div>
+  <p>© 2026 Pitstop Resto World – Cuisine & passion au cœur de Kinshasa</p>
+  <p style="margin-top: 0.5rem; font-size: 0.85rem;"><i class="fas fa-map-marked-alt"></i> H8J6+5C7, Kinshasa | Suivez l’aventure #PitstopKinshasa</p>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const toggleBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  }
+  // Fermer le menu après clic sur un lien (mobile)
+  const links = document.querySelectorAll('.nav-links a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+
+  // Initialisation de la carte Leaflet avec les coordonnées approximatives de H8J6+5C7, Kinshasa
+  // En utilisant la géolocalisation approximative : Kinshasa (commune de Gombe / centre)
+  // Le code H8J6+5C7 correspond à un secteur précis de Kinshasa (env. -4.3225, 15.3225)
+  // Nous définissons des coordonnées réalistes pour le restaurant d'après les données (proche de l'avenue Kasa-Vubu)
+  const pitstopCoords = [-4.3225, 15.3225];  // approximation pour "H8J6+5C7" dans Kinshasa
+  const mapElement = document.getElementById('map');
+  if (mapElement && typeof L !== 'undefined') {
+    const map = L.map('map').setView(pitstopCoords, 15);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> & CartoDB',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map);
+    // marqueur personnalisé
+    const pitstopIcon = L.divIcon({
+      html: '<i class="fas fa-utensils" style="font-size:28px; color:#c96e2c; text-shadow: 0 0 2px white;"></i>',
+      iconSize: [30, 40],
+      className: 'custom-div-icon'
+    });
+    L.marker(pitstopCoords, { icon: pitstopIcon }).addTo(map)
+      .bindPopup('<b>🍽️ Pitstop Resto World</b><br>H8J6+5C7, Kinshasa<br>🇨🇩 Cuisine du monde & Ambiance unique')
+      .openPopup();
+    // Ajout d'une petite animation ou zoom correct
+    setTimeout(() => { map.invalidateSize(); }, 200);
+  } else {
+    // Fallback si Leaflet ne charge pas (rare) : affichage d'une image statique OpenStreetMap
+    if(mapElement) {
+      mapElement.innerHTML = `<iframe width="100%" height="100%" style="border:0; min-height:300px;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=15.2925%2C-4.3525%2C15.3525%2C-4.2925&layer=mapnik&marker=-4.3225%2C15.3225"></iframe>`;
+    }
+  }
+</script>
+
+<!-- Ajustement responsive pour la carte et gestion supplémentaire -->
+<style>
+  .custom-div-icon i {
+    background: rgba(255,255,240,0.9);
+    border-radius: 40px;
+    padding: 5px;
+    box-shadow: 0 0 0 2px white, 0 2px 10px rgba(0,0,0,0.2);
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: 18px;
+    font-family: 'Inter', sans-serif;
+  }
+  @media (max-width: 600px) {
+    .map-embed, .map-info { flex: auto; }
+  }
+  /* smooth scroll */
+  html {
+    scroll-padding-top: 80px;
+  }
+</style>
+</body>
+</html>
